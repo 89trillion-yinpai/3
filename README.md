@@ -27,4 +27,5 @@
 - 2:控制倒计时的脚本（每秒更新一次）
 - 3:控制排行榜内容更新和复用的脚本
 - 
-- ![排行榜](https://user-images.githubusercontent.com/92706401/140011666-d76ccdd7-c2b0-47b9-8966-cdfd442c376b.png)
+
+![排行榜](https://user-images.githubusercontent.com/92706401/140605711-408573cb-ee37-40dc-b72e-cb9f29f0dfb8.png)
