@@ -58,14 +58,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Controller\JsonController.cs" />
-     <Compile Include="Assets\Scripts\Controller\TimeController.cs" />
-     <Compile Include="Assets\Scripts\Model\Read.cs" />
-     <Compile Include="Assets\Scripts\View\BasicListAdapter.cs" />
-     <None Include="Assets\Art\资源\OSA\Resources\OSA\Templates\ScriptsChunks\HeaderComment.txt" />
-     <None Include="Assets\Art\资源\OSA\Resources\OSA\Templates\Scripts\BasicListAdapter.txt" />
-     <None Include="Assets\Art\资源\OSA\Resources\OSA\Templates\Scripts\BasicGridAdapter.txt" />
-     <None Include="Assets\Art\资源\OSA\Docs\Manual link.txt" />
+     <Compile Include="Assets\Function1\01.Plugins\SimpleJSON.cs" />
+     <Compile Include="Assets\Function1\01.Plugins\SimpleJSONBinary.cs" />
+     <Compile Include="Assets\Function1\01.Plugins\SimpleJSONDotNetTypes.cs" />
+     <Compile Include="Assets\Function1\01.Plugins\SimpleJSONUnity.cs" />
+     <Compile Include="Assets\Function1\04.Scripts\Controller\JsonController.cs" />
+     <Compile Include="Assets\Function1\04.Scripts\Controller\TimeController.cs" />
+     <Compile Include="Assets\Function1\04.Scripts\Model\Read.cs" />
+     <Compile Include="Assets\Function1\04.Scripts\View\BasicListAdapter.cs" />
+     <None Include="Assets\Function1\01.Plugins\Changelog.txt" />
+     <None Include="Assets\Function1\02.Materals\资源\OSA\Resources\OSA\Templates\ScriptsChunks\HeaderComment.txt" />
+     <None Include="Assets\Function1\02.Materals\资源\OSA\Resources\OSA\Templates\Scripts\BasicListAdapter.txt" />
+     <None Include="Assets\Function1\02.Materals\资源\OSA\Resources\OSA\Templates\Scripts\BasicGridAdapter.txt" />
+     <None Include="Assets\Function1\02.Materals\资源\OSA\Docs\Manual link.txt" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>/Users/yinpai/排行榜1/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
@@ -87,14 +92,14 @@
  <Reference Include="Unity.Rider.Editor">
  <HintPath>/Users/yinpai/排行榜1/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
  </Reference>
+ <Reference Include="Unity.2D.Sprite.Editor">
+ <HintPath>/Users/yinpai/排行榜1/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.TextMeshPro">
  <HintPath>/Users/yinpai/排行榜1/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
  <HintPath>/Users/yinpai/排行榜1/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.Sprite.Editor">
- <HintPath>/Users/yinpai/排行榜1/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -629,10 +634,6 @@
  </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{567ACC6C-5186-8152-E96E-C43066EBA5EA}</Project>
-      <Name>Assembly-CSharp-firstpass</Name>
-    </ProjectReference>
     <ProjectReference Include="OSA-Editor.csproj">
       <Project>{661C13B0-1197-C934-7233-BE72173BEB98}</Project>
       <Name>OSA-Editor</Name>
