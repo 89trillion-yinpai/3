@@ -11,13 +11,13 @@ namespace Assets.Function1._04.Scripts.Controller
         [FormerlySerializedAs("text")] 
         public Text endTimeText;
         //倒计时总时间
-        private int totalTime;
+        private int m_TotalTime;
         //显示倒计时文本
         private string printTime = "Ends  : ";
         private void Start()
         {
             //获取json给的倒计时数据
-            totalTime = countDown ;
+            m_TotalTime = CountDown ;
             //开启协程，这个开启方法只适用于协程只有一个参数的时候
             StartCoroutine(Time());
             
@@ -34,19 +34,19 @@ namespace Assets.Function1._04.Scripts.Controller
         //每一帧检查倒计时是否结束
         private void Update()
         {
-            if (totalTime == 0)
+            if (m_TotalTime == 0)
             {
                 Debug.Log("Game over");
             }
         }
         IEnumerator Time()
         {
-            while (totalTime > 0)
+            while (m_TotalTime > 0)
             {
-                endTimeText.text = GetTime(totalTime);
+                endTimeText.text = GetTime(m_TotalTime);
                 //等待一秒后执行,模拟时间流动
                 yield return new WaitForSeconds(1);
-                totalTime--;
+                m_TotalTime--;
             }
         }
 

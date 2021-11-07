@@ -1,22 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using SimpleJSON;
-using System;
+﻿using System;
 
 //序列化数据，将数据状态转换为可传输的格式
-[Serializable]
-
-public class Read 
+namespace Assets.Function1._04.Scripts.Model
 {
-    //声明属性及类型
-    public string uid;
-    public string nickName;
-    public string avatar;
-    public int trophy;
-    public string thirdAvatar;
-    public string onlineStatus;
-    public string role;
-    public string abb;
-    public int countDown;
+    [Serializable]
+
+    public class Read 
+    {
+        //声明属性及类型
+        public string Uid;
+        public string NickName;
+        public string Avatar;
+        public int Trophy;
+        public string ThirdAvatar;
+        public string OnlineStatus;
+        public string Role;
+        public string Abb;
+        public int CountDown;
+    }
 }

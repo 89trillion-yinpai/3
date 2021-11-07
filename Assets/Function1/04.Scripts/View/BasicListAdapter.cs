@@ -27,6 +27,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Function1._04.Scripts.Controller;
 using Com.TheFallenGames.OSA.Core;
 using Com.TheFallenGames.OSA.CustomParams;
 using Com.TheFallenGames.OSA.DataHelpers;
@@ -36,7 +37,7 @@ using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 // You should modify the namespace to your own or - if you're sure there won't ever be conflicts - remove it altogether
-namespace Assets.Scripts.View
+namespace Assets.Function1._04.Scripts.View
 {
 	// There are 2 important callbacks you need to implement, apart from Start(): CreateViewsHolder() and UpdateViewsHolder()
 	// See explanations below
@@ -80,7 +81,7 @@ namespace Assets.Scripts.View
 			// Calling this initializes internal data and prepares the adapter to handle item count changes
 			base.Awake();
 			//读取json数据
-			list.duqu();
+			list.Duqu();
 			//复用次数等于json数据列表长度
 			RetrieveDataAndUpdate(list.item.Count);
 			// Retrieve the models from your data source and set the items count
@@ -119,29 +120,29 @@ namespace Assets.Scripts.View
 			
 			MyListItemModel model = Data[newOrRecycled.ItemIndex];
 			newOrRecycled.CupNum.text = model.CupNum.ToString();
-			newOrRecycled.txtPlayerName.text = model.txtPlayerName.ToString();
-			if (model.txtRank < 3)
+			newOrRecycled.TxtPlayerName.text = model.TxtPlayerName.ToString();
+			if (model.TxtRank < 3)
 			{
 				//前三名显示特定奖牌，不显示数字
-				newOrRecycled.imgRank.sprite = model.imgRank;
-				newOrRecycled.imgRank.gameObject.SetActive(true);
+				newOrRecycled.ImgRank.sprite = model.ImgRank;
+				newOrRecycled.ImgRank.gameObject.SetActive(true);
 				//防止资源图片变形
-				newOrRecycled.imgRank.SetNativeSize();
+				newOrRecycled.ImgRank.SetNativeSize();
 			}
 			else
 			{
 				//其他人显示数字排名，没有奖牌
-				newOrRecycled.imgRank.gameObject.SetActive(false);
-				newOrRecycled.txtRank.gameObject.SetActive(true);
-				newOrRecycled.txtRank.text = (model.txtRank + 1).ToString();
+				newOrRecycled.ImgRank.gameObject.SetActive(false);
+				newOrRecycled.TxtRank.gameObject.SetActive(true);
+				newOrRecycled.TxtRank.text = (model.TxtRank + 1).ToString();
 			}
 			//每条排行榜添加点击事件
-			newOrRecycled.btnBackground.GetComponent<Button>().onClick.AddListener(() =>
+			newOrRecycled.BtnBackground.GetComponent<Button>().onClick.AddListener(() =>
 			{
 				//显示对话框
 				talk.SetActive(true);
 				//显示自己的名字
-				myself.text = model.txtPlayerName;
+				myself.text = model.TxtPlayerName;
 				//显示自己的奖杯数
 				cupNum.text = model.CupNum.ToString();
 			});
@@ -154,7 +155,7 @@ namespace Assets.Scripts.View
 				Debug.Log("User:  " + model.PlayerName + "Rank" + (model.Count + 1));
 			});*/
 			//背景图片
-			newOrRecycled.btnBackground.sprite = model.btnBackground;
+			newOrRecycled.BtnBackground.sprite = model.BtnBackground;
 			//段位等级图片
 			newOrRecycled.RankGrade.sprite = model.RankGrade;
 			
@@ -246,38 +247,38 @@ namespace Assets.Scripts.View
 				var model = new MyListItemModel()
 				{
 					//玩家名字
-					txtPlayerName = list.item[i].nickName,
+					TxtPlayerName = list.item[i].NickName,
 					//玩家拥有奖杯数
-					CupNum = list.item[i].trophy,
+					CupNum = list.item[i].Trophy,
 					//设置i的值下面区分前三名和其他人的时候用
 					//Count = i,
 				};
 				//根据奖杯数量判断显示段位
-                if ((list.item[i].trophy ) < 1000)
+                if ((list.item[i].Trophy ) < 1000)
                 {
                     model.RankGrade = stand8ONRank;
                 }
-                else if ((list.item[i].trophy ) < 2000)
+                else if ((list.item[i].Trophy ) < 2000)
                 {
                     model.RankGrade = stand7ONRank;
                 }
-                else if ((list.item[i].trophy ) < 3000)
+                else if ((list.item[i].Trophy ) < 3000)
                 {
                     model.RankGrade = stand6ONRank;
                 }
-                else if ((list.item[i].trophy ) < 4000)
+                else if ((list.item[i].Trophy ) < 4000)
                 {
                     model.RankGrade = stand5ONRank;
                 }
-                else if ((list.item[i].trophy ) < 5000)
+                else if ((list.item[i].Trophy ) < 5000)
                 {
                     model.RankGrade = stand4ONRank;
                 }
-                else if ((list.item[i].trophy ) < 6000)
+                else if ((list.item[i].Trophy ) < 6000)
                 {
                     model.RankGrade = stand3ONRank;
                 }
-                else if ((list.item[i].trophy ) < 7000)
+                else if ((list.item[i].Trophy ) < 7000)
                 {
                     model.RankGrade = stand2ONRank;
                 }
@@ -290,27 +291,27 @@ namespace Assets.Scripts.View
                 {
                     if (i == 0)
                     {
-                        model.btnBackground = rank1Sprite;
-                        model.imgRank = rank1;
+                        model.BtnBackground = rank1Sprite;
+                        model.ImgRank = rank1;
                     }
 
                     if (i == 1)
                     {
-                        model.btnBackground = rank2Sprite;
-                        model.imgRank = rank2;
+                        model.BtnBackground = rank2Sprite;
+                        model.ImgRank = rank2;
                     }
 
                     if (i == 2)
                     {
-                        model.btnBackground = rank3Sprite;
-                        model.imgRank = rank3;
+                        model.BtnBackground = rank3Sprite;
+                        model.ImgRank = rank3;
                     }
                 }
                 //其他人显示数字排名而不是奖牌，其他人统一背景颜色
                 else
                 {
-                    model.txtRank = i;
-                    model.btnBackground = normalSprite;
+                    model.TxtRank = i;
+                    model.BtnBackground = normalSprite;
                 }
 				newItems[i] = model;
 			}
@@ -333,12 +334,12 @@ namespace Assets.Scripts.View
 		public Color color;
 		*/
 		//声明匹配的ui组件内容类型
-		public Sprite btnBackground;
+		public Sprite BtnBackground;
 		public Sprite RankGrade;
 		public int CupNum;
-		public Sprite imgRank;
-		public int txtRank;
-		public string txtPlayerName;
+		public Sprite ImgRank;
+		public int TxtRank;
+		public string TxtPlayerName;
 		//public int Count;
 		//public Sprite head;
 	}
@@ -353,12 +354,12 @@ namespace Assets.Scripts.View
 		public Image backgroundImage;
 		*/
 		//声明用到的ui组件类型
-		public Image btnBackground;
+		public Image BtnBackground;
 		public Image RankGrade;
 		public Text CupNum;
-		public Image imgRank;
-		public Text txtRank;
-		public Text txtPlayerName;
+		public Image ImgRank;
+		public Text TxtRank;
+		public Text TxtPlayerName;
 		//public Image head;
 		// GetComponentAtPath is a handy extension method from frame8.Logic.Misc.Other.Extensions
 			// which infers the variable's component from its type, so you won't need to specify it yourself
@@ -372,12 +373,12 @@ namespace Assets.Scripts.View
 		public override void CollectViews()//收集并显示出声明的ui组件
 		{
 			base.CollectViews();
-			root.GetComponentAtPath("btnBackground", out btnBackground);
+			root.GetComponentAtPath("btnBackground", out BtnBackground);
 			root.GetComponentAtPath("imgRankGrade", out RankGrade);
 			root.GetComponentAtPath("txtCupNum", out CupNum);
-			root.GetComponentAtPath("imgRank", out imgRank);
-			root.GetComponentAtPath("txtRank", out txtRank);
-			root.GetComponentAtPath("txtPlayerName", out txtPlayerName);
+			root.GetComponentAtPath("imgRank", out ImgRank);
+			root.GetComponentAtPath("txtRank", out TxtRank);
+			root.GetComponentAtPath("txtPlayerName", out TxtPlayerName);
 			//root.GetComponentAtPath("head", out head);
 			// GetComponentAtPath is a handy extension method from frame8.Logic.Misc.Other.Extensions
 			// which infers the variable's component from its type, so you won't need to specify it yourself
