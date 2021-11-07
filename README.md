@@ -7,22 +7,48 @@
 - 5:根据需求文档实现具体的功能并测试
 
 ## 目录结构：
-- —Assets—
-- ——Art——
-- ———资源———  #存储美术资源
-- ————OSA——— #存储OSA插件
-- —Plugins— #存储simplejson插件
-- —Resources—
-- —Script—  #存储编写的脚本
-- ——Controller——  #控制类脚本
-- ——Model————  #数据类脚本
-- ——View——  #搭建ui脚本
+
+```
+
+├── Readme.md             #技术文档                    
+├── config                     
+│   ├── SimpleScence      #场景
+├── internal
+│   ├── Read  #读取配置文件
+│   ├── JsonController        #数据类
+│   ├── BasicListAdapter  #复用模版
+│   |    ├── pkg   
+│   |    ├── ├── OSA   
+│   |    ├── ├── SimepleJson
+
+```
+
 
 
 ## 层级分析：
 - 入口按钮（button）打开整个排行榜，分为上面的倒计时界面和下面的排行滚动视图（OSAviewport),在滚动视图里显示排行榜的所有内容
 
-# 代码：
+```
+├── MainCamera
+├── JsonController              #读取数据
+├── ButtonEvent                  #点击事件
+├── Canvans
+│   ├── OpenButton
+│   ├── CloseButton	
+│   ├── OSA                      #排行榜
+│       ├── Content		
+│           ├── content
+│           ├── BasicListAdapter #UI模版
+
+```
+
+## 第三方库
+- 1:Simplejson:用于解析json文件
+- Assets/Function1/01.Plugins/SimpleJSON.cs
+- 2:OSA：用于复用ui
+- Assets/Function1/02.Materals/资源/OSA
+
+## 代码：
 | 需要的脚本       |     实现的功能 |
 | ------ | ------                |
 | 读取数据脚本 |  读取和解析json的脚本  |
