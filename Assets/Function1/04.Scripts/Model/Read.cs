@@ -4,8 +4,7 @@
 namespace Assets.Function1._04.Scripts.Model
 {
     [Serializable]
-
-    public class Read 
+    public class Read
     {
         //声明属性及类型
         public string Uid;

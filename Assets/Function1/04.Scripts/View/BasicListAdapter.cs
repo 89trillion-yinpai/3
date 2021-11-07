@@ -39,246 +39,261 @@ using UnityEngine.UI;
 // You should modify the namespace to your own or - if you're sure there won't ever be conflicts - remove it altogether
 namespace Assets.Function1._04.Scripts.View
 {
-	// There are 2 important callbacks you need to implement, apart from Start(): CreateViewsHolder() and UpdateViewsHolder()
-	// See explanations below
-	public class BasicListAdapter : OSA<BaseParamsWithPrefab, MyListItemViewsHolder>
-	{
-		// Helper that stores data and notifies the adapter when items count changes
-		// Can be iterated and can also have its elements accessed by the [] operator
-		public SimpleDataHelper<MyListItemModel> Data { get; private set; }
-		//创建json数据列表对象
-		public JsonController list;
-		//前三名的背景    "FormerlySerializedAs"防止变量名改变丢失引用
-		[FormerlySerializedAs("normal")] public Sprite normalSprite;
-		[FormerlySerializedAs("Rank3Sprite")] public Sprite rank3Sprite;
-		[FormerlySerializedAs("Rank2Sprite")] public Sprite rank2Sprite;
-		[FormerlySerializedAs("Rank1Sprite")] public Sprite rank1Sprite;
-		//前三名的奖牌    "FormerlySerializedAs"防止变量名改变丢失引用
-		[FormerlySerializedAs("Rank3")] public Sprite rank3;
-		[FormerlySerializedAs("Rank2")] public Sprite rank2;
-		[FormerlySerializedAs("Rank1")] public Sprite rank1;
-		//声明段位图标   "FormerlySerializedAs"防止变量名改变丢失引用
-		[FormerlySerializedAs("Stand1onRank")] public Sprite stand1ONRank;
-		[FormerlySerializedAs("Stand2onRank")] public Sprite stand2ONRank;
-		[FormerlySerializedAs("Stand3onRank")] public Sprite stand3ONRank;
-		[FormerlySerializedAs("Stand4onRank")] public Sprite stand4ONRank;
-		[FormerlySerializedAs("Stand5onRank")] public Sprite stand5ONRank;
-		[FormerlySerializedAs("Stand6onRank")] public Sprite stand6ONRank;
-		[FormerlySerializedAs("Stand7onRank")] public Sprite stand7ONRank;
-		[FormerlySerializedAs("Stand8onRank")] public Sprite stand8ONRank;
-		//对话框
-		public GameObject talk;
-		//对话框里显示自己名字
-		public Text myself;
-		//对话框里自己的奖杯数
-		public Text cupNum;
+    // There are 2 important callbacks you need to implement, apart from Start(): CreateViewsHolder() and UpdateViewsHolder()
+    // See explanations below
+    public class BasicListAdapter : OSA<BaseParamsWithPrefab, MyListItemViewsHolder>
+    {
+        // Helper that stores data and notifies the adapter when items count changes
+        // Can be iterated and can also have its elements accessed by the [] operator
+        public SimpleDataHelper<MyListItemModel> Data { get; private set; }
 
-		#region OSA implementation
-		protected override void Awake()//初始化
-		{
-			Data = new SimpleDataHelper<MyListItemModel>(this);
+        //创建json数据列表对象
+        public JsonController list;
 
-			// Calling this initializes internal data and prepares the adapter to handle item count changes
-			base.Awake();
-			//读取json数据
-			list.Duqu();
-			//复用次数等于json数据列表长度
-			RetrieveDataAndUpdate(list.item.Count);
-			// Retrieve the models from your data source and set the items count
-			/*
-			
-			*/
-		}
+        //前三名的背景    "FormerlySerializedAs"防止变量名改变丢失引用
+        [FormerlySerializedAs("normal")] public Sprite normalSprite;
+        [FormerlySerializedAs("Rank3Sprite")] public Sprite rank3Sprite;
+        [FormerlySerializedAs("Rank2Sprite")] public Sprite rank2Sprite;
 
-		// This is called initially, as many times as needed to fill the viewport, 
-		// and anytime the viewport's size grows, thus allowing more items to be displayed
-		// Here you create the "ViewsHolder" instance whose views will be re-used
-		// *For the method's full description check the base implementation
-		protected override MyListItemViewsHolder CreateViewsHolder(int itemIndex)
-		{
-			var instance = new MyListItemViewsHolder();
+        [FormerlySerializedAs("Rank1Sprite")] public Sprite rank1Sprite;
 
-			// Using this shortcut spares you from:
-			// - instantiating the prefab yourself
-			// - enabling the instance game object
-			// - setting its index 
-			// - calling its CollectViews()
-			instance.Init(_Params.ItemPrefab, _Params.Content, itemIndex);
-			return instance;
-		}
+        //前三名的奖牌    "FormerlySerializedAs"防止变量名改变丢失引用
+        [FormerlySerializedAs("Rank3")] public Sprite rank3;
+        [FormerlySerializedAs("Rank2")] public Sprite rank2;
 
-		// This is called anytime a previously invisible item become visible, or after it's created, 
-		// or when anything that requires a refresh happens
-		// Here you bind the data from the model to the item's views
-		// *For the method's full description check the base implementation
-		
-		protected override void UpdateViewsHolder(MyListItemViewsHolder newOrRecycled)//更新显示的内容
-		{
-			// In this callback, "newOrRecycled.ItemIndex" is guaranteed to always reflect the
-			// index of item that should be represented by this views holder. You'll use this index
-			// to retrieve the model from your data set
-			
-			MyListItemModel model = Data[newOrRecycled.ItemIndex];
-			newOrRecycled.CupNum.text = model.CupNum.ToString();
-			newOrRecycled.TxtPlayerName.text = model.TxtPlayerName.ToString();
-			if (model.TxtRank < 3)
-			{
-				//前三名显示特定奖牌，不显示数字
-				newOrRecycled.ImgRank.sprite = model.ImgRank;
-				newOrRecycled.ImgRank.gameObject.SetActive(true);
-				//防止资源图片变形
-				newOrRecycled.ImgRank.SetNativeSize();
-			}
-			else
-			{
-				//其他人显示数字排名，没有奖牌
-				newOrRecycled.ImgRank.gameObject.SetActive(false);
-				newOrRecycled.TxtRank.gameObject.SetActive(true);
-				newOrRecycled.TxtRank.text = (model.TxtRank + 1).ToString();
-			}
-			//每条排行榜添加点击事件
-			newOrRecycled.BtnBackground.GetComponent<Button>().onClick.AddListener(() =>
-			{
-				//显示对话框
-				talk.SetActive(true);
-				//显示自己的名字
-				myself.text = model.TxtPlayerName;
-				//显示自己的奖杯数
-				cupNum.text = model.CupNum.ToString();
-			});
-			//每条排行榜添加点击事件
-			/*newOrRecycled.BgButton.GetComponent<Button>().onClick.AddListener(() =>
-			{
-				buttonPanel.SetActive(true);
-				playerString.text = model.PlayerName;
-				cupNum.text = model.CupNum.ToString();
-				Debug.Log("User:  " + model.PlayerName + "Rank" + (model.Count + 1));
-			});*/
-			//背景图片
-			newOrRecycled.BtnBackground.sprite = model.BtnBackground;
-			//段位等级图片
-			newOrRecycled.RankGrade.sprite = model.RankGrade;
-			
-		}
+        [FormerlySerializedAs("Rank1")] public Sprite rank1;
 
-		// This is the best place to clear an item's views in order to prepare it from being recycled, but this is not always needed, 
-		// especially if the views' values are being overwritten anyway. Instead, this can be used to, for example, cancel an image 
-		// download request, if it's still in progress when the item goes out of the viewport.
-		// <newItemIndex> will be non-negative if this item will be recycled as opposed to just being disabled
-		// *For the method's full description check the base implementation
-		/*
-		protected override void OnBeforeRecycleOrDisableViewsHolder(MyListItemViewsHolder inRecycleBinOrVisible, int newItemIndex)
-		{
-			base.OnBeforeRecycleOrDisableViewsHolder(inRecycleBinOrVisible, newItemIndex);
-		}
-		*/
+        //声明段位图标   "FormerlySerializedAs"防止变量名改变丢失引用
+        [FormerlySerializedAs("Stand1onRank")] public Sprite stand1ONRank;
+        [FormerlySerializedAs("Stand2onRank")] public Sprite stand2ONRank;
+        [FormerlySerializedAs("Stand3onRank")] public Sprite stand3ONRank;
+        [FormerlySerializedAs("Stand4onRank")] public Sprite stand4ONRank;
+        [FormerlySerializedAs("Stand5onRank")] public Sprite stand5ONRank;
+        [FormerlySerializedAs("Stand6onRank")] public Sprite stand6ONRank;
+        [FormerlySerializedAs("Stand7onRank")] public Sprite stand7ONRank;
 
-		// You only need to care about this if changing the item count by other means than ResetItems, 
-		// case in which the existing items will not be re-created, but only their indices will change.
-		// Even if you do this, you may still not need it if your item's views don't depend on the physical position 
-		// in the content, but they depend exclusively to the data inside the model (this is the most common scenario).
-		// In this particular case, we want the item's index to be displayed and also to not be stored inside the model,
-		// so we update its title when its index changes. At this point, the Data list is already updated and 
-		// shiftedViewsHolder.ItemIndex was correctly shifted so you can use it to retrieve the associated model
-		// Also check the base implementation for complementary info
-		/*
-		protected override void OnItemIndexChangedDueInsertOrRemove(MyListItemViewsHolder shiftedViewsHolder, int oldIndex, bool wasInsert, int removeOrInsertIndex)
-		{
-			base.OnItemIndexChangedDueInsertOrRemove(shiftedViewsHolder, oldIndex, wasInsert, removeOrInsertIndex);
+        [FormerlySerializedAs("Stand8onRank")] public Sprite stand8ONRank;
 
-			shiftedViewsHolder.titleText.text = Data[shiftedViewsHolder.ItemIndex].title + " #" + shiftedViewsHolder.ItemIndex;
-		}
-		*/
-		#endregion
+        //对话框
+        public GameObject talk;
 
-		// These are common data manipulation methods
-		// The list containing the models is managed by you. The adapter only manages the items' sizes and the count
-		// The adapter needs to be notified of any change that occurs in the data list. Methods for each
-		// case are provided: Refresh, ResetItems, InsertItems, RemoveItems
-		#region data manipulation
-		public void AddItemsAt(int index, IList<MyListItemModel> items)
-		{
-			// Commented: the below 2 lines exemplify how you can use a plain list to manage the data, instead of a DataHelper, in case you need full control
-			//YourList.InsertRange(index, items);
-			//InsertItems(index, items.Length);
+        //对话框里显示自己名字
+        public Text myself;
 
-			Data.InsertItems(index, items);
-		}
+        //对话框里自己的奖杯数
+        public Text cupNum;
 
-		public void RemoveItemsFrom(int index, int count)
-		{
-			// Commented: the below 2 lines exemplify how you can use a plain list to manage the data, instead of a DataHelper, in case you need full control
-			//YourList.RemoveRange(index, count);
-			//RemoveItems(index, count);
+        #region OSA implementation
 
-			Data.RemoveItems(index, count);
-		}
+        protected override void Awake() //初始化
+        {
+            Data = new SimpleDataHelper<MyListItemModel>(this);
 
-		public void SetItems(IList<MyListItemModel> items)
-		{
-			// Commented: the below 3 lines exemplify how you can use a plain list to manage the data, instead of a DataHelper, in case you need full control
-			//YourList.Clear();
-			//YourList.AddRange(items);
-			//ResetItems(YourList.Count);
+            // Calling this initializes internal data and prepares the adapter to handle item count changes
+            base.Awake();
+            //读取json数据
+            list.Duqu();
+            //复用次数等于json数据列表长度
+            RetrieveDataAndUpdate(list.item.Count);
+            // Retrieve the models from your data source and set the items count
+            /*
+            
+            */
+        }
 
-			Data.ResetItems(items);
-		}
-		#endregion
+        // This is called initially, as many times as needed to fill the viewport, 
+        // and anytime the viewport's size grows, thus allowing more items to be displayed
+        // Here you create the "ViewsHolder" instance whose views will be re-used
+        // *For the method's full description check the base implementation
+        protected override MyListItemViewsHolder CreateViewsHolder(int itemIndex)
+        {
+            var instance = new MyListItemViewsHolder();
+
+            // Using this shortcut spares you from:
+            // - instantiating the prefab yourself
+            // - enabling the instance game object
+            // - setting its index 
+            // - calling its CollectViews()
+            instance.Init(_Params.ItemPrefab, _Params.Content, itemIndex);
+            return instance;
+        }
+
+        // This is called anytime a previously invisible item become visible, or after it's created, 
+        // or when anything that requires a refresh happens
+        // Here you bind the data from the model to the item's views
+        // *For the method's full description check the base implementation
+
+        protected override void UpdateViewsHolder(MyListItemViewsHolder newOrRecycled) //更新显示的内容
+        {
+            // In this callback, "newOrRecycled.ItemIndex" is guaranteed to always reflect the
+            // index of item that should be represented by this views holder. You'll use this index
+            // to retrieve the model from your data set
+
+            MyListItemModel model = Data[newOrRecycled.ItemIndex];
+            newOrRecycled.CupNum.text = model.CupNum.ToString();
+            newOrRecycled.TxtPlayerName.text = model.TxtPlayerName.ToString();
+            if (model.TxtRank < 3)
+            {
+                //前三名显示特定奖牌，不显示数字
+                newOrRecycled.ImgRank.sprite = model.ImgRank;
+                newOrRecycled.ImgRank.gameObject.SetActive(true);
+                //防止资源图片变形
+                newOrRecycled.ImgRank.SetNativeSize();
+            }
+            else
+            {
+                //其他人显示数字排名，没有奖牌
+                newOrRecycled.ImgRank.gameObject.SetActive(false);
+                newOrRecycled.TxtRank.gameObject.SetActive(true);
+                newOrRecycled.TxtRank.text = (model.TxtRank + 1).ToString();
+            }
+
+            //每条排行榜添加点击事件
+            newOrRecycled.BtnBackground.GetComponent<Button>().onClick.AddListener(() =>
+            {
+                //显示对话框
+                talk.SetActive(true);
+                //显示自己的名字
+                myself.text = model.TxtPlayerName;
+                //显示自己的奖杯数
+                cupNum.text = model.CupNum.ToString();
+            });
+            //每条排行榜添加点击事件
+            /*newOrRecycled.BgButton.GetComponent<Button>().onClick.AddListener(() =>
+            {
+                buttonPanel.SetActive(true);
+                playerString.text = model.PlayerName;
+                cupNum.text = model.CupNum.ToString();
+                Debug.Log("User:  " + model.PlayerName + "Rank" + (model.Count + 1));
+            });*/
+            //背景图片
+            newOrRecycled.BtnBackground.sprite = model.BtnBackground;
+            //段位等级图片
+            newOrRecycled.RankGrade.sprite = model.RankGrade;
+        }
+
+        // This is the best place to clear an item's views in order to prepare it from being recycled, but this is not always needed, 
+        // especially if the views' values are being overwritten anyway. Instead, this can be used to, for example, cancel an image 
+        // download request, if it's still in progress when the item goes out of the viewport.
+        // <newItemIndex> will be non-negative if this item will be recycled as opposed to just being disabled
+        // *For the method's full description check the base implementation
+        /*
+        protected override void OnBeforeRecycleOrDisableViewsHolder(MyListItemViewsHolder inRecycleBinOrVisible, int newItemIndex)
+        {
+            base.OnBeforeRecycleOrDisableViewsHolder(inRecycleBinOrVisible, newItemIndex);
+        }
+        */
+
+        // You only need to care about this if changing the item count by other means than ResetItems, 
+        // case in which the existing items will not be re-created, but only their indices will change.
+        // Even if you do this, you may still not need it if your item's views don't depend on the physical position 
+        // in the content, but they depend exclusively to the data inside the model (this is the most common scenario).
+        // In this particular case, we want the item's index to be displayed and also to not be stored inside the model,
+        // so we update its title when its index changes. At this point, the Data list is already updated and 
+        // shiftedViewsHolder.ItemIndex was correctly shifted so you can use it to retrieve the associated model
+        // Also check the base implementation for complementary info
+        /*
+        protected override void OnItemIndexChangedDueInsertOrRemove(MyListItemViewsHolder shiftedViewsHolder, int oldIndex, bool wasInsert, int removeOrInsertIndex)
+        {
+            base.OnItemIndexChangedDueInsertOrRemove(shiftedViewsHolder, oldIndex, wasInsert, removeOrInsertIndex);
+
+            shiftedViewsHolder.titleText.text = Data[shiftedViewsHolder.ItemIndex].title + " #" + shiftedViewsHolder.ItemIndex;
+        }
+        */
+
+        #endregion
+
+        // These are common data manipulation methods
+        // The list containing the models is managed by you. The adapter only manages the items' sizes and the count
+        // The adapter needs to be notified of any change that occurs in the data list. Methods for each
+        // case are provided: Refresh, ResetItems, InsertItems, RemoveItems
+
+        #region data manipulation
+
+        public void AddItemsAt(int index, IList<MyListItemModel> items)
+        {
+            // Commented: the below 2 lines exemplify how you can use a plain list to manage the data, instead of a DataHelper, in case you need full control
+            //YourList.InsertRange(index, items);
+            //InsertItems(index, items.Length);
+
+            Data.InsertItems(index, items);
+        }
+
+        public void RemoveItemsFrom(int index, int count)
+        {
+            // Commented: the below 2 lines exemplify how you can use a plain list to manage the data, instead of a DataHelper, in case you need full control
+            //YourList.RemoveRange(index, count);
+            //RemoveItems(index, count);
+
+            Data.RemoveItems(index, count);
+        }
+
+        public void SetItems(IList<MyListItemModel> items)
+        {
+            // Commented: the below 3 lines exemplify how you can use a plain list to manage the data, instead of a DataHelper, in case you need full control
+            //YourList.Clear();
+            //YourList.AddRange(items);
+            //ResetItems(YourList.Count);
+
+            Data.ResetItems(items);
+        }
+
+        #endregion
 
 
-		// Here, we're requesting <count> items from the data source
-		void RetrieveDataAndUpdate(int count)
-		{
-			//开启协程，这个开启方法只适合有一个参数的协程
-			StartCoroutine(FetchMoreItemsFromDataSourceAndUpdate(count));
-		}
+        // Here, we're requesting <count> items from the data source
+        void RetrieveDataAndUpdate(int count)
+        {
+            //开启协程，这个开启方法只适合有一个参数的协程
+            StartCoroutine(FetchMoreItemsFromDataSourceAndUpdate(count));
+        }
 
-		// Retrieving <count> models from the data source and calling OnDataRetrieved after.
-		// In a real case scenario, you'd query your server, your database or whatever is your data source and call OnDataRetrieved after
-		IEnumerator FetchMoreItemsFromDataSourceAndUpdate(int count)
-		{
-			// Simulating data retrieving delay
-			
-			yield return new WaitForSeconds(0.5f);
-			var newItems = new MyListItemModel[count];
-			// Retrieve your data here
-			for (int i = 0; i < count; ++i)
-			{
-				var model = new MyListItemModel()
-				{
-					//玩家名字
-					TxtPlayerName = list.item[i].NickName,
-					//玩家拥有奖杯数
-					CupNum = list.item[i].Trophy,
-					//设置i的值下面区分前三名和其他人的时候用
-					//Count = i,
-				};
-				//根据奖杯数量判断显示段位
-                if ((list.item[i].Trophy ) < 1000)
+        // Retrieving <count> models from the data source and calling OnDataRetrieved after.
+        // In a real case scenario, you'd query your server, your database or whatever is your data source and call OnDataRetrieved after
+        IEnumerator FetchMoreItemsFromDataSourceAndUpdate(int count)
+        {
+            // Simulating data retrieving delay
+
+            yield return new WaitForSeconds(0.5f);
+            var newItems = new MyListItemModel[count];
+            // Retrieve your data here
+            for (int i = 0; i < count; ++i)
+            {
+                var model = new MyListItemModel()
+                {
+                    //玩家名字
+                    TxtPlayerName = list.item[i].NickName,
+                    //玩家拥有奖杯数
+                    CupNum = list.item[i].Trophy,
+                    //设置i的值下面区分前三名和其他人的时候用
+                    //Count = i,
+                };
+                //根据奖杯数量判断显示段位
+                if ((list.item[i].Trophy) < 1000)
                 {
                     model.RankGrade = stand8ONRank;
                 }
-                else if ((list.item[i].Trophy ) < 2000)
+                else if ((list.item[i].Trophy) < 2000)
                 {
                     model.RankGrade = stand7ONRank;
                 }
-                else if ((list.item[i].Trophy ) < 3000)
+                else if ((list.item[i].Trophy) < 3000)
                 {
                     model.RankGrade = stand6ONRank;
                 }
-                else if ((list.item[i].Trophy ) < 4000)
+                else if ((list.item[i].Trophy) < 4000)
                 {
                     model.RankGrade = stand5ONRank;
                 }
-                else if ((list.item[i].Trophy ) < 5000)
+                else if ((list.item[i].Trophy) < 5000)
                 {
                     model.RankGrade = stand4ONRank;
                 }
-                else if ((list.item[i].Trophy ) < 6000)
+                else if ((list.item[i].Trophy) < 6000)
                 {
                     model.RankGrade = stand3ONRank;
                 }
-                else if ((list.item[i].Trophy ) < 7000)
+                else if ((list.item[i].Trophy) < 7000)
                 {
                     model.RankGrade = stand2ONRank;
                 }
@@ -286,6 +301,7 @@ namespace Assets.Function1._04.Scripts.View
                 {
                     model.RankGrade = stand1ONRank;
                 }
+
                 //前三名设置特定的背景和奖牌
                 if (i < 3)
                 {
@@ -313,103 +329,106 @@ namespace Assets.Function1._04.Scripts.View
                     model.TxtRank = i;
                     model.BtnBackground = normalSprite;
                 }
-				newItems[i] = model;
-			}
-			
 
-			OnDataRetrieved(newItems);
-		}
-
-		void OnDataRetrieved(MyListItemModel[] newItems)
-		{
-			Data.InsertItemsAtEnd(newItems);
-		}
-	}
-
-	// Class containing the data associated with an item
-	public class MyListItemModel
-	{
-		/*
-		public string title;
-		public Color color;
-		*/
-		//声明匹配的ui组件内容类型
-		public Sprite BtnBackground;
-		public Sprite RankGrade;
-		public int CupNum;
-		public Sprite ImgRank;
-		public int TxtRank;
-		public string TxtPlayerName;
-		//public int Count;
-		//public Sprite head;
-	}
+                newItems[i] = model;
+            }
 
 
-	// This class keeps references to an item's views.
-	// Your views holder should extend BaseItemViewsHolder for ListViews and CellViewsHolder for GridViews
-	public class MyListItemViewsHolder : BaseItemViewsHolder
-	{
-		/*
-		public Text titleText;
-		public Image backgroundImage;
-		*/
-		//声明用到的ui组件类型
-		public Image BtnBackground;
-		public Image RankGrade;
-		public Text CupNum;
-		public Image ImgRank;
-		public Text TxtRank;
-		public Text TxtPlayerName;
-		//public Image head;
-		// GetComponentAtPath is a handy extension method from frame8.Logic.Misc.Other.Extensions
-			// which infers the variable's component from its type, so you won't need to specify it yourself
-			/*
-			root.GetComponentAtPath("TitleText", out titleText);
-			root.GetComponentAtPath("BackgroundImage", out backgroundImage);
-			*/
+            OnDataRetrieved(newItems);
+        }
 
-			
-			// Retrieving the views from the item's root GameObject
-		public override void CollectViews()//收集并显示出声明的ui组件
-		{
-			base.CollectViews();
-			root.GetComponentAtPath("btnBackground", out BtnBackground);
-			root.GetComponentAtPath("imgRankGrade", out RankGrade);
-			root.GetComponentAtPath("txtCupNum", out CupNum);
-			root.GetComponentAtPath("imgRank", out ImgRank);
-			root.GetComponentAtPath("txtRank", out TxtRank);
-			root.GetComponentAtPath("txtPlayerName", out TxtPlayerName);
-			//root.GetComponentAtPath("head", out head);
-			// GetComponentAtPath is a handy extension method from frame8.Logic.Misc.Other.Extensions
-			// which infers the variable's component from its type, so you won't need to specify it yourself
-			/*
-			root.GetComponentAtPath("TitleText", out titleText);
-			root.GetComponentAtPath("BackgroundImage", out backgroundImage);
-			*/
-		}
+        void OnDataRetrieved(MyListItemModel[] newItems)
+        {
+            Data.InsertItemsAtEnd(newItems);
+        }
+    }
 
-		// Override this if you have children layout groups or a ContentSizeFitter on root that you'll use. 
-		// They need to be marked for rebuild when this callback is fired
-		/*
-		public override void MarkForRebuild()
-		{
-			base.MarkForRebuild();
+    // Class containing the data associated with an item
+    public class MyListItemModel
+    {
+        /*
+        public string title;
+        public Color color;
+        */
+        //声明匹配的ui组件内容类型
+        public Sprite BtnBackground;
+        public Sprite RankGrade;
+        public int CupNum;
+        public Sprite ImgRank;
+        public int TxtRank;
 
-			LayoutRebuilder.MarkLayoutForRebuild(yourChildLayout1);
-			LayoutRebuilder.MarkLayoutForRebuild(yourChildLayout2);
-			YourSizeFitterOnRoot.enabled = true;
-		}
-		*/
-		
+        public string TxtPlayerName;
+        //public int Count;
+        //public Sprite head;
+    }
 
-		// Override this if you've also overridden MarkForRebuild() and you have enabled size fitters there (like a ContentSizeFitter)
-		/*
-		public override void UnmarkForRebuild()
-		{
-			YourSizeFitterOnRoot.enabled = false;
 
-			base.UnmarkForRebuild();
-		}
-		*/
-	}
+    // This class keeps references to an item's views.
+    // Your views holder should extend BaseItemViewsHolder for ListViews and CellViewsHolder for GridViews
+    public class MyListItemViewsHolder : BaseItemViewsHolder
+    {
+        /*
+        public Text titleText;
+        public Image backgroundImage;
+        */
+        //声明用到的ui组件类型
+        public Image BtnBackground;
+        public Image RankGrade;
+        public Text CupNum;
+        public Image ImgRank;
+        public Text TxtRank;
+
+        public Text TxtPlayerName;
+        //public Image head;
+        // GetComponentAtPath is a handy extension method from frame8.Logic.Misc.Other.Extensions
+        // which infers the variable's component from its type, so you won't need to specify it yourself
+        /*
+        root.GetComponentAtPath("TitleText", out titleText);
+        root.GetComponentAtPath("BackgroundImage", out backgroundImage);
+        */
+
+
+        // Retrieving the views from the item's root GameObject
+        public override void CollectViews() //收集并显示出声明的ui组件
+        {
+            base.CollectViews();
+            root.GetComponentAtPath("btnBackground", out BtnBackground);
+            root.GetComponentAtPath("imgRankGrade", out RankGrade);
+            root.GetComponentAtPath("txtCupNum", out CupNum);
+            root.GetComponentAtPath("imgRank", out ImgRank);
+            root.GetComponentAtPath("txtRank", out TxtRank);
+            root.GetComponentAtPath("txtPlayerName", out TxtPlayerName);
+            //root.GetComponentAtPath("head", out head);
+            // GetComponentAtPath is a handy extension method from frame8.Logic.Misc.Other.Extensions
+            // which infers the variable's component from its type, so you won't need to specify it yourself
+            /*
+            root.GetComponentAtPath("TitleText", out titleText);
+            root.GetComponentAtPath("BackgroundImage", out backgroundImage);
+            */
+        }
+
+        // Override this if you have children layout groups or a ContentSizeFitter on root that you'll use. 
+        // They need to be marked for rebuild when this callback is fired
+        /*
+        public override void MarkForRebuild()
+        {
+            base.MarkForRebuild();
+
+            LayoutRebuilder.MarkLayoutForRebuild(yourChildLayout1);
+            LayoutRebuilder.MarkLayoutForRebuild(yourChildLayout2);
+            YourSizeFitterOnRoot.enabled = true;
+        }
+        */
+
+
+        // Override this if you've also overridden MarkForRebuild() and you have enabled size fitters there (like a ContentSizeFitter)
+        /*
+        public override void UnmarkForRebuild()
+        {
+            YourSizeFitterOnRoot.enabled = false;
+
+            base.UnmarkForRebuild();
+        }
+        */
+    }
 }

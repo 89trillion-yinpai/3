@@ -8,19 +8,21 @@ namespace Assets.Function1._04.Scripts.Controller
     public class JsonController : MonoBehaviour
     {
         public int CountDown;
+
         //声明列表存储json数据
         public List<Read> item;
         public int Num;
-    
+
         void Awake()
         {
             Duqu();
         }
+
         //读取json数据
         public void Duqu()
         {
             item.Clear();
-        
+
             TextAsset playText = Resources.Load("ranklist") as TextAsset;
             JSONNode jsonObject = JSON.Parse(playText.text);
             CountDown = jsonObject["countDown"];
@@ -38,6 +40,7 @@ namespace Assets.Function1._04.Scripts.Controller
                 fieldRead.Abb = jsonObject[1][i]["abb"];
                 item.Add(fieldRead);
             }
+
             item.Sort((x, y) => { return -x.Trophy.CompareTo(y.Trophy); });
         }
     }

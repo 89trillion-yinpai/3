@@ -8,22 +8,23 @@ namespace Assets.Function1._04.Scripts.Controller
     public class TimeController : JsonController
     {
         //防止重命名变量后丢失引用
-        [FormerlySerializedAs("text")] 
-        public Text endTimeText;
+        [FormerlySerializedAs("text")] public Text endTimeText;
+
         //倒计时总时间
         private int m_TotalTime;
+
         //显示倒计时文本
         private string printTime = "Ends  : ";
+
         private void Start()
         {
             //获取json给的倒计时数据
-            m_TotalTime = CountDown ;
+            m_TotalTime = CountDown;
             //开启协程，这个开启方法只适用于协程只有一个参数的时候
             StartCoroutine(Time());
-            
-            
         }
-        string GetTime(int time)//让倒计时从天读到秒
+
+        string GetTime(int time) //让倒计时从天读到秒
         {
             int d = time / 86400;
             int h = time / 3600 - d * 24;
@@ -31,6 +32,7 @@ namespace Assets.Function1._04.Scripts.Controller
             int s = time - m * 60 - h * 3600 - d * 24 * 60 * 60;
             return printTime + d.ToString() + "d " + h.ToString() + "h " + m.ToString() + "m " + s.ToString() + "s ";
         }
+
         //每一帧检查倒计时是否结束
         private void Update()
         {
@@ -39,6 +41,7 @@ namespace Assets.Function1._04.Scripts.Controller
                 Debug.Log("Game over");
             }
         }
+
         IEnumerator Time()
         {
             while (m_TotalTime > 0)
@@ -49,6 +52,5 @@ namespace Assets.Function1._04.Scripts.Controller
                 m_TotalTime--;
             }
         }
-
     }
 }
