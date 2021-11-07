@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: background
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 115fe22ac51d14fe9a2e9889e4365409, type: 3}
+    - {fileID: 21300000, guid: 5bbce5fbb6f5b491485f17749f43b76f, type: 3}
+    - {fileID: 21300000, guid: 596f3e6be1e6a4545ae3f4dd76582c40, type: 3}
+    - {fileID: 2800000, guid: ddf3c534cdc464e8cb180c001711a924, type: 3}
+    - {fileID: 21300000, guid: 4fc46c392e4d040e087fce3561f8cd07, type: 3}
+    - {fileID: 2800000, guid: a055c9ea5fe3a4679b7ab7e1adb42a41, type: 3}
+    - {fileID: 2800000, guid: a0cd24c9cea9d44febc035d08f4baedc, type: 3}
+    - {fileID: 21300000, guid: 926560d60e7d74c6c9992ffc145ff7a7, type: 3}
+    - {fileID: 2800000, guid: 5939b9cfc25114f85bc1973b00340b89, type: 3}
+    - {fileID: 21300000, guid: 90e21bb1c25694df4b630f4da3565c47, type: 3}
+    - {fileID: 21300000, guid: 4661777da7ce2492ebac15d33a82fd0d, type: 3}
+    - {fileID: 2800000, guid: b8c4e7534936f4041b0006f45e235be9, type: 3}
+    - {fileID: 21300000, guid: a90992a4ba3e241c6a404ce78e148f84, type: 3}
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 90e21bb1c25694df4b630f4da3565c47, type: 3}
+  - {fileID: 21300000, guid: b8c4e7534936f4041b0006f45e235be9, type: 3}
+  - {fileID: 21300000, guid: ddf3c534cdc464e8cb180c001711a924, type: 3}
+  - {fileID: 21300000, guid: a90992a4ba3e241c6a404ce78e148f84, type: 3}
+  - {fileID: 21300000, guid: 926560d60e7d74c6c9992ffc145ff7a7, type: 3}
+  - {fileID: 21300000, guid: 4fc46c392e4d040e087fce3561f8cd07, type: 3}
+  - {fileID: 21300000, guid: a0cd24c9cea9d44febc035d08f4baedc, type: 3}
+  - {fileID: 21300000, guid: 115fe22ac51d14fe9a2e9889e4365409, type: 3}
+  - {fileID: 21300000, guid: a055c9ea5fe3a4679b7ab7e1adb42a41, type: 3}
+  - {fileID: 21300000, guid: 596f3e6be1e6a4545ae3f4dd76582c40, type: 3}
+  - {fileID: 21300000, guid: 5bbce5fbb6f5b491485f17749f43b76f, type: 3}
+  - {fileID: 21300000, guid: 4661777da7ce2492ebac15d33a82fd0d, type: 3}
+  - {fileID: 21300000, guid: 5939b9cfc25114f85bc1973b00340b89, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - rank list_1
+  - rank list_3
+  - panel_claim
+  - rank list_normal
+  - panel_season results
+  - panel_light blue
+  - panel_reward 2
+  - banner
+  - panel_reward
+  - panel_blue
+  - bubble
+  - rank list_2
+  - panel_yellow
+  m_Tag: background
+  m_IsVariant: 0

@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: rankimage
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 1
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 561c27727377f4b3a925df4b987598be, type: 3}
+    - {fileID: 2800000, guid: 513f35cf76100446b8654dc28f3be1e2, type: 3}
+    - {fileID: 21300000, guid: c2b85081ae62e45aa8506ae449b564bf, type: 3}
+    - {fileID: 2800000, guid: bedc07d4b950247cd890b8297a6c1fa0, type: 3}
+    - {fileID: 2800000, guid: a4064eb2971294c1dac5fb46944017ee, type: 3}
+    - {fileID: 2800000, guid: fce0537806580473dba1f0f84b63e8eb, type: 3}
+    - {fileID: 2800000, guid: 4aa4a07496dd448569fea4f9621f7336, type: 3}
+    - {fileID: 2800000, guid: 2b26114c0d2924b4d9d957fa8a8f17d2, type: 3}
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: c2b85081ae62e45aa8506ae449b564bf, type: 3}
+  - {fileID: 21300000, guid: 561c27727377f4b3a925df4b987598be, type: 3}
+  - {fileID: 21300000, guid: a4064eb2971294c1dac5fb46944017ee, type: 3}
+  - {fileID: 21300000, guid: 4aa4a07496dd448569fea4f9621f7336, type: 3}
+  - {fileID: 21300000, guid: bedc07d4b950247cd890b8297a6c1fa0, type: 3}
+  - {fileID: 21300000, guid: fce0537806580473dba1f0f84b63e8eb, type: 3}
+  - {fileID: 21300000, guid: 2b26114c0d2924b4d9d957fa8a8f17d2, type: 3}
+  - {fileID: 21300000, guid: 513f35cf76100446b8654dc28f3be1e2, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - arenaBadge_3
+  - arenaBadge_1
+  - arenaBadge_5
+  - arenaBadge_7
+  - arenaBadge_4
+  - arenaBadge_6
+  - arenaBadge_8
+  - arenaBadge_2
+  m_Tag: rankimage
+  m_IsVariant: 0
